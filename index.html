@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emoji Reference</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #1e1e2f;
+            color: #f5f5f5;
+            line-height: 1.5;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background: #2a2a40;
+            border-bottom: 2px solid #4e54c8;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            color: #6c6ff9;
+        }
+
+        .emoji-container {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .emoji-item {
+            background: #2a2a40;
+            border: 1px solid #4e54c8;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            color: #f5f5f5;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .emoji-item:hover {
+            transform: scale(1.05);
+            background: #6c6ff9;
+            color: #1e1e2f;
+        }
+
+        .emoji {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .code {
+            font-size: 0.9rem;
+            color: #d0d0d0;
+            word-wrap: break-word;
+            margin-top: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #2a2a40;
+            border-top: 2px solid #4e54c8;
+            color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Emoji Reference</h1>
+    <p>Click on an emoji to copy it to your clipboard!</p>
+</header>
+
+<div class="emoji-container" id="emoji-container">
+    <!-- Emojis will be loaded here dynamically -->
+</div>
+
+<footer>
+    <p>&copy; 2024 Emoji Reference</p>
+</footer>
+
+<script>
+    // List of emojis and their codes
+    const emojis = [
+        { emoji: "😀", code: "&#128512;" },
+        { emoji: "😁", code: "&#128513;" },
+        { emoji: "😂", code: "&#128514;" },
+        { emoji: "🤣", code: "&#129315;" },
+        { emoji: "😃", code: "&#128515;" },
+        { emoji: "😄", code: "&#128516;" },
+        { emoji: "😅", code: "&#128517;" },
+        { emoji: "😆", code: "&#128518;" },
+        { emoji: "😉", code: "&#128521;" },
+        { emoji: "😊", code: "&#128522;" },
+        { emoji: "😋", code: "&#128523;" },
+        { emoji: "😎", code: "&#128526;" },
+        { emoji: "😍", code: "&#128525;" },
+        { emoji: "😘", code: "&#128536;" },
+        { emoji: "🥰", code: "&#129392;" },
+        { emoji: "😗", code: "&#128535;" },
+        { emoji: "😙", code: "&#128537;" },
+        { emoji: "😚", code: "&#128538;" },
+        { emoji: "🤗", code: "&#129303;" },
+        { emoji: "🤩", code: "&#129321;" },
+        { emoji: "🤔", code: "&#129300;" },
+        { emoji: "🤨", code: "&#129320;" },
+        { emoji: "😐", code: "&#128528;" },
+        { emoji: "😑", code: "&#128529;" },
+        { emoji: "😶", code: "&#128566;" },
+        { emoji: "🙄", code: "&#128580;" },
+        { emoji: "😏", code: "&#128527;" },
+        { emoji: "😒", code: "&#128530;" },
+        { emoji: "😞", code: "&#128542;" },
+        { emoji: "😔", code: "&#128532;" },
+        { emoji: "😟", code: "&#128543;" },
+        { emoji: "😕", code: "&#128533;" },
+        { emoji: "🙃", code: "&#128579;" },
+        { emoji: "😣", code: "&#128547;" },
+        { emoji: "😖", code: "&#128534;" },
+        { emoji: "😫", code: "&#128555;" },
+        { emoji: "😩", code: "&#128553;" },
+        { emoji: "🥳", code: "&#129395;" },
+        { emoji: "😤", code: "&#128548;" },
+        { emoji: "😠", code: "&#128544;" },
+        { emoji: "😡", code: "&#128545;" },
+        { emoji: "🤬", code: "&#129324;" },
+        { emoji: "😭", code: "&#128557;" },
+        { emoji: "😢", code: "&#128546;" },
+        { emoji: "😰", code: "&#128560;" },
+        { emoji: "😥", code: "&#128549;" },
+        { emoji: "😓", code: "&#128531;" },
+        { emoji: "🤒", code: "&#129298;" },
+        { emoji: "🤕", code: "&#129301;" },
+        { emoji: "🤢", code: "&#129314;" },
+        { emoji: "🤮", code: "&#129326;" },
+        { emoji: "🤧", code: "&#129319;" },
+        // Add more emojis here
+    ];
+
+    const container = document.getElementById('emoji-container');
+
+    // Render emojis dynamically
+    emojis.forEach(item => {
+        const emojiDiv = document.createElement('div');
+        emojiDiv.className = 'emoji-item';
+        emojiDiv.innerHTML = `
+            <div class="emoji" data-emoji="${item.emoji}">${item.emoji}</div>
+            <div class="code">${item.code}</div>
+        `;
+
+        // Add click event to copy emoji
+        emojiDiv.addEventListener('click', () => {
+            navigator.clipboard.writeText(item.emoji)
+                .then(() => alert(`Copied: ${item.emoji}`))
+                .catch(err => console.error('Error copying emoji:', err));
+        });
+
+        container.appendChild(emojiDiv);
+    });
+</script>
+
+</body>
+</html>
